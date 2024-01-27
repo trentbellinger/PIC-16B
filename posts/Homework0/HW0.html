@@ -194,19 +194,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="penguins-dataset-visualization" class="level1">
 <h1>Penguins Dataset Visualization</h1>
+<ul>
+<li>We start by importing the necessary packages for this task. We will use pandas to load in the data into a data frame object, numpy to create an array for the visualization, and matplotlib.pyplot to visualize the data.</li>
+</ul>
+<div id="7542b069" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="loading-in-and-viewing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="loading-in-and-viewing-the-data">1. Loading in and Viewing the Data</h2>
 <ul>
-<li>In order to figure out what type of visualization to make using the penguins dataset, I first read in the dataset and looked at its columns.</li>
+<li>In order to figure out what type of visualization to make using the penguins dataset, I will first read in the dataset and look at its columns.</li>
 </ul>
-<div id="cd550597" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/pic16b-ucla/24W/main/datasets/palmer_penguins.csv"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="d5af92a6" class="cell" data-scrolled="true" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div id="cd550597" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/pic16b-ucla/24W/main/datasets/palmer_penguins.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -351,10 +356,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>We start by grouping the observations in the dataset by island and sex and finding the median body mass of penguins for each category combination. This simple process is outlined below.</li>
 </ul>
-<div id="8c8765e5" class="cell" data-execution_count="9">
+<div id="8c8765e5" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins_by_island <span class="op">=</span> penguins.groupby([<span class="st">"Island"</span>, <span class="st">"Sex"</span>])[<span class="st">"Body Mass (g)"</span>].median()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_by_island</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>Island     Sex   
 Biscoe     .         4875.0
            FEMALE    4587.5
@@ -369,7 +374,7 @@ Name: Body Mass (g), dtype: float64</code></pre>
 <ul>
 <li>At first glance, it appears that male penguins at each island have higher mass that females on each island.</li>
 <li>It also seems like the penguins on Biscoe Island have much higher mass than the other two islands.</li>
-<li>We will see visualize these observations.</li>
+<li>We will see if we can visualize these observations.</li>
 </ul>
 </section>
 <section id="data-visualization" class="level2">
@@ -378,28 +383,32 @@ Name: Body Mass (g), dtype: float64</code></pre>
 <li>We now have three variables that we want to visualize: median body mass, island, and sex.</li>
 <li>Body mass is a numeric variable, whereas island and sex are categorical variables.</li>
 <li>This combination led me to create a double bar graph to display the trends among these three variables.</li>
-<li>The code for this bar graph is below. I imported the necessary packages, created the bars for the bar graph, and added labels.</li>
+<li>The code for this bar graph is below. I created an array for the x-axis, created the bars for the bar graph, and added labels.</li>
 </ul>
-<div id="aa322591" class="cell" data-execution_count="15">
+<div id="aa322591" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We will create a bar plot that groups by Island and Sex and shows the median </span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># body mass of the penguins.</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We plot the bars for the median body mass of female penguins by island, as </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculated above.</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.bar(X_axis <span class="op">-</span> <span class="fl">0.2</span>, [<span class="fl">4587.5</span>, <span class="dv">3450</span>, <span class="dv">3400</span>], <span class="fl">0.4</span>, label <span class="op">=</span> <span class="st">'Female'</span>) </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We plot the bars for the median body mass of male penguins by island, as </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We will have 3 different ticks on the x-axis, each coprresponding to an island.</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X_axis <span class="op">=</span> np.arange(<span class="dv">3</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># We plot the bars for the median body mass of female penguins by island, as </span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calculated above.</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.bar(X_axis <span class="op">+</span> <span class="fl">0.2</span>, [<span class="dv">5350</span>, <span class="dv">3950</span>, <span class="dv">4000</span>], <span class="fl">0.4</span>, label <span class="op">=</span> <span class="st">'Male'</span>) </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="st">"Biscoe"</span>, <span class="st">"Dream"</span>, <span class="st">"Torgersen"</span>]) </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Island"</span>) </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Body Mass of Penguins"</span>) </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Body Mass of Penguins by Island and Sex"</span>) </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.legend() </span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.bar(X_axis <span class="op">-</span> <span class="fl">0.2</span>, [<span class="fl">4587.5</span>, <span class="dv">3450</span>, <span class="dv">3400</span>], <span class="fl">0.4</span>, label <span class="op">=</span> <span class="st">'Female'</span>) </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># We plot the bars for the median body mass of male penguins by island, as </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># calculated above.</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.bar(X_axis <span class="op">+</span> <span class="fl">0.2</span>, [<span class="dv">5350</span>, <span class="dv">3950</span>, <span class="dv">4000</span>], <span class="fl">0.4</span>, label <span class="op">=</span> <span class="st">'Male'</span>) </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], [<span class="st">"Biscoe"</span>, <span class="st">"Dream"</span>, <span class="st">"Torgersen"</span>]) </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Island"</span>) </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Body Mass of Penguins"</span>) </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Body Mass of Penguins by Island and Sex"</span>) </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.legend() </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
