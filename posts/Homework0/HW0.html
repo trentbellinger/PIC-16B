@@ -192,12 +192,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="penguins-dataset-visualization" class="level1">
-<h1>Penguins Dataset Visualization</h1>
+<section id="penguins-dataset-visualization-tutorial" class="level1">
+<h1>Penguins Dataset Visualization Tutorial</h1>
 <ul>
 <li>We start by importing the necessary packages for this task. We will use pandas to load in the data into a data frame object, numpy to create an array for the visualization, and matplotlib.pyplot to visualize the data.</li>
 </ul>
-<div id="7542b069" class="cell" data-execution_count="10">
+<div id="81edb52a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -205,13 +205,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="loading-in-and-viewing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="loading-in-and-viewing-the-data">1. Loading in and Viewing the Data</h2>
 <ul>
-<li>In order to figure out what type of visualization to make using the penguins dataset, I will first read in the dataset and look at its columns.</li>
+<li>In order to figure out what type of visualization to make using the penguins dataset, we will first read in the dataset and look at its columns. This will allow us to formulate a question about the data that our visualization will answer.</li>
 </ul>
-<div id="cd550597" class="cell" data-execution_count="11">
+<div id="cd550597" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/pic16b-ucla/24W/main/datasets/palmer_penguins.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(url)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -347,8 +347,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ul>
 <li>The dataset has columns studyName, Sample Number, Species, Region, Island, Stage, Individual ID, Clutch Completion, Date Egg, Culmen Length, Culmen Depth, Flipper Length, Body Mass, Sea, Delta 15 N, Delta 13 C, and Comments.</li>
-<li>I am particularly interested in looking at the Body Mass column because this can be indicative of the overall health and strength of the penguins.</li>
-<li>I want to visualize how the body mass of a penguin depends on the sex of the penguin and the island that the penguin lives on.</li>
+<li>For this tutorial, we will specifically be looking at the Body Mass column because this can be indicative of the overall health and strength of the penguins.</li>
+<li>More specifically, we will attempt to visualize how the body mass of a penguin depends on the sex of the penguin and the island that the penguin lives on.</li>
+<li>Now that we have our area of interest, we can formulate the question that our visualization will attempt to answer.</li>
+<li>That question will be: How does the body mass of a penguin change based on its sex and the island that it lives on?</li>
 </ul>
 </section>
 <section id="data-preparation" class="level2">
@@ -356,10 +358,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>We start by grouping the observations in the dataset by island and sex and finding the median body mass of penguins for each category combination. This simple process is outlined below.</li>
 </ul>
-<div id="8c8765e5" class="cell" data-execution_count="12">
+<div id="8c8765e5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins_by_island <span class="op">=</span> penguins.groupby([<span class="st">"Island"</span>, <span class="st">"Sex"</span>])[<span class="st">"Body Mass (g)"</span>].median()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>penguins_by_island</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>Island     Sex   
 Biscoe     .         4875.0
            FEMALE    4587.5
@@ -382,10 +384,15 @@ Name: Body Mass (g), dtype: float64</code></pre>
 <ul>
 <li>We now have three variables that we want to visualize: median body mass, island, and sex.</li>
 <li>Body mass is a numeric variable, whereas island and sex are categorical variables.</li>
-<li>This combination led me to create a double bar graph to display the trends among these three variables.</li>
-<li>The code for this bar graph is below. I created an array for the x-axis, created the bars for the bar graph, and added labels.</li>
+<li>With this specific combination of one numeric and two categorical variables, we can create a double bar graph to display the trends among these three variables.</li>
+<li>The code for this bar graph is below. In short, this code block goes through this process:</li>
 </ul>
-<div id="aa322591" class="cell" data-execution_count="13">
+<ol type="1">
+<li>Create a numpy array for the x-axis of the double bar plot.</li>
+<li>Create the bars for the bar graph. The median body mass is the height of the bars and we have one bar for each sex-island combination.</li>
+<li>Add labels to the visualization to make it more clear. The x-axis will be the different islands, the y-axis will be the median body mass, and the bars will be colored based on sex.</li>
+</ol>
+<div id="aa322591" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -419,6 +426,7 @@ Name: Body Mass (g), dtype: float64</code></pre>
 </div>
 <ul>
 <li>As we can see from the visualization, Biscoe island has penguins with higher body mass than Dream island and Torgersen island. Also, male penguins on average have a greater body mass that female penguins on each island.</li>
+<li>This visualization does not explain exactly why these trends are apparent, but it does allow us to speculate a little bit about the trends. One possible explanation is that there is more food for the penguins on Biscoe island, allowing the penguins to weight more.</li>
 </ul>
 
 
