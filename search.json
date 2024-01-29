@@ -9,133 +9,133 @@
   {
     "objectID": "posts/Homework1/HW1.html",
     "href": "posts/Homework1/HW1.html",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "",
     "text": "Before beginning the coding for the assignment, I loaded in all the necessary packages. The packages are loaded in below, and have a short description of what they were used for in the assignment.\n\n\n# used to read in data as dataframes and in each function\nimport pandas as pd\n\n# used in part 1 to create the database and in the query functions\nimport sqlite3\n\n# used in the temperature_coefficient_plot function\nimport numpy as np\n\n# used for visualizations\nfrom plotly import express as px\n\n# used to obtain coefficients in the temperature_coefficient_plot function\nfrom sklearn.linear_model import LinearRegression\n\n# used to properly show figures in the quarto blog\nimport plotly.io as pio\npio.renderers.default=\"iframe\""
   },
   {
     "objectID": "posts/Homework1/HW1.html#stations-dataset",
     "href": "posts/Homework1/HW1.html#stations-dataset",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Stations Dataset:",
     "text": "Stations Dataset:\n\nThis is a dataset that contains the ID, latitude, longitude, elevation, and name of each station that we will be looking at.\nWe are particularly interested in the longitude and latitude columns of this datast, which can be used to create visualizations where the locations of the stations are accurately represented on a world map.\nThe data is read in below along with a preview of what it looks like.\n\n\nstations = pd.read_csv(\"station-metadata.csv\")\nstations.head()\n\n\n\n\n\n\n\n\nID\nLATITUDE\nLONGITUDE\nSTNELEV\nNAME\n\n\n\n\n0\nACW00011604\n57.7667\n11.8667\n18.0\nSAVE\n\n\n1\nAE000041196\n25.3330\n55.5170\n34.0\nSHARJAH_INTER_AIRP\n\n\n2\nAEM00041184\n25.6170\n55.9330\n31.0\nRAS_AL_KHAIMAH_INTE\n\n\n3\nAEM00041194\n25.2550\n55.3640\n10.4\nDUBAI_INTL\n\n\n4\nAEM00041216\n24.4300\n54.4700\n3.0\nABU_DHABI_BATEEN_AIR"
   },
   {
     "objectID": "posts/Homework1/HW1.html#temperatures-dataset",
     "href": "posts/Homework1/HW1.html#temperatures-dataset",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Temperatures Dataset:",
     "text": "Temperatures Dataset:\n\nThis is a dataset containing the ID, year, and temperature at the 12 months during the year for each station.\nWe are especially interested in looking at the temperature fluctuations at each station, so this dataset will be very useful for that.\nThe dataset is read in below along with a preview of what it looks like.\n\n\ntemps = pd.read_csv(\"temps.csv\")\ntemps.head()\n\n\n\n\n\n\n\n\nID\nYear\nVALUE1\nVALUE2\nVALUE3\nVALUE4\nVALUE5\nVALUE6\nVALUE7\nVALUE8\nVALUE9\nVALUE10\nVALUE11\nVALUE12\n\n\n\n\n0\nACW00011604\n1961\n-89.0\n236.0\n472.0\n773.0\n1128.0\n1599.0\n1570.0\n1481.0\n1413.0\n1174.0\n510.0\n-39.0\n\n\n1\nACW00011604\n1962\n113.0\n85.0\n-154.0\n635.0\n908.0\n1381.0\n1510.0\n1393.0\n1163.0\n994.0\n323.0\n-126.0\n\n\n2\nACW00011604\n1963\n-713.0\n-553.0\n-99.0\n541.0\n1224.0\n1627.0\n1620.0\n1596.0\n1332.0\n940.0\n566.0\n-108.0\n\n\n3\nACW00011604\n1964\n62.0\n-85.0\n55.0\n738.0\n1219.0\n1442.0\n1506.0\n1557.0\n1221.0\n788.0\n546.0\n112.0\n\n\n4\nACW00011604\n1965\n44.0\n-105.0\n38.0\n590.0\n987.0\n1500.0\n1487.0\n1477.0\n1377.0\n974.0\n31.0\n-178.0\n\n\n\n\n\n\n\n\nLooking at the temperatures dataset above, it is clear that it will not be very easy to work with if we want to look at temperatures by month and year because years and months are all in different columns.\nWe will solve this issue by creating function to prepare the temps dataset into a more suitable form for our database.\nThis function, created in lecture, is defined below and is called on the temps dataset. A preview of the new dataset that we will use for database creation is also shown.\n\n\ndef prepare_df(df):\n    df = df.set_index(keys=[\"ID\", \"Year\"])\n    df = df.stack()\n    df = df.reset_index()\n    df = df.rename(columns = {\"level_2\"  : \"Month\" , 0 : \"Temp\"})\n    df[\"Month\"] = df[\"Month\"].str[5:].astype(int)\n    df[\"Temp\"]  = df[\"Temp\"] / 100\n    return(df)\n\ntemps = prepare_df(temps)\ntemps.head()\n\n\n\n\n\n\n\n\nID\nYear\nMonth\nTemp\n\n\n\n\n0\nACW00011604\n1961\n1\n-0.89\n\n\n1\nACW00011604\n1961\n2\n2.36\n\n\n2\nACW00011604\n1961\n3\n4.72\n\n\n3\nACW00011604\n1961\n4\n7.73\n\n\n4\nACW00011604\n1961\n5\n11.28"
   },
   {
     "objectID": "posts/Homework1/HW1.html#countries-dataset",
     "href": "posts/Homework1/HW1.html#countries-dataset",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Countries Dataset:",
     "text": "Countries Dataset:\n\nThis is a dataset containing the names of every country along with their 2-letter abbreviations.\nThis will be used to determine which stations are in which country using the ID columns in the stations and temperatures datasets.\nThe data is read in below along with a preview of what the data looks like.\n\n\ncountries = pd.read_csv(\"https://raw.githubusercontent.com/mysociety/gaze/master/data/fips-10-4-to-iso-country-codes.csv\")\ncountries.head()\n\n\n\n\n\n\n\n\nFIPS 10-4\nISO 3166\nName\n\n\n\n\n0\nAF\nAF\nAfghanistan\n\n\n1\nAX\n-\nAkrotiri\n\n\n2\nAL\nAL\nAlbania\n\n\n3\nAG\nDZ\nAlgeria\n\n\n4\nAQ\nAS\nAmerican Samoa"
   },
   {
     "objectID": "posts/Homework1/HW1.html#we-now-create-the-database-with-one-table-for-each-of-the-three-datasets-that-we-have.",
     "href": "posts/Homework1/HW1.html#we-now-create-the-database-with-one-table-for-each-of-the-three-datasets-that-we-have.",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "We now create the database with one table for each of the three datasets that we have.",
     "text": "We now create the database with one table for each of the three datasets that we have.\n\nWe start by establishing a connection to a file “hw1.db” which is the main file for the database.\nWe then add each dataset that we read in above into the database using the to_sql method.\nThe connection to the database is then closed.\n\n\nconn = sqlite3.connect(\"hw1.db\")\n\ncountries.to_sql(\"countries\", conn, if_exists = \"replace\", index = False)\n\nstations.to_sql(\"stations\", conn, if_exists = \"replace\", index = False)\n\ntemps.to_sql(\"temperatures\", conn, if_exists = \"replace\", index = False)\n    \nconn.close()"
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-temperature_coefficient_plot-function-part-1",
     "href": "posts/Homework1/HW1.html#testing-temperature_coefficient_plot-function-part-1",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing temperature_coefficient_plot() Function (Part 1):",
     "text": "Testing temperature_coefficient_plot() Function (Part 1):\n\nWe will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), country = “India”, year_begin = 1980, year_end = 2020, month = 1, min_obs = 10, zoom = 2, mapbox_style = “carto-positron”, color_continuous_scale = px.colors.diverging.RdGy_r.\nThis will give us a visualization of the changes in station temperature recordings from 1980 to 2020 in India with specifications of the plot being zoom, mapbox style, and color continuous scale.\n\n\ncolor_map = px.colors.diverging.RdGy_r # choose a colormap\n\nfig = temperature_coefficient_plot(\"hw1.db\", \"India\", 1980, 2020, 1, \n                                   min_obs = 10,\n                                   zoom = 2,\n                                   mapbox_style=\"carto-positron\",\n                                   color_continuous_scale=color_map)\n\nfig.show()\n\n\n\n\n\nFrom the plot above, we can see that there are 8 to 12 points that are noticably dark, indicating a high change in temperature coefficient in years 1980-2020 in India. This is alarming because it could be indicative of climate issues in those areas."
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-temperature_coefficient_plot-function-part-2",
     "href": "posts/Homework1/HW1.html#testing-temperature_coefficient_plot-function-part-2",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing temperature_coefficient_plot() Function (Part 2):",
     "text": "Testing temperature_coefficient_plot() Function (Part 2):\n\nWe will now test the function again, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), country = “United States”, year_begin = 2010, year_end = 2020, month = 1, min_obs = 20, zoom = 2, mapbox_style = “carto-positron”, color_continuous_scale = px.colors.diverging.RdGy_r.\nThis will give us a visualization of the changes in station temperature recordings from 2010 to 2020 in the United States with specifications of the plot being zoom, mapbox style, and color continuous scale.\n\n\nfig2 = temperature_coefficient_plot(\"hw1.db\", \"United States\", 2010, 2020, 1, \n                                   min_obs = 10,\n                                   zoom = 2,\n                                   mapbox_style=\"carto-positron\",\n                                   color_continuous_scale=color_map)\n\nfig2.show()\n\n\n\n\n\nFrom the plot above, we can see that there are at least 4 points that are extremely dark, indicating a high change in temperature coefficient in years 2010-2020 in the United States. Overall, this is not too bad becasue thare are many more dots that are not dark color, but it should raise alarm for those areas."
   },
   {
     "objectID": "posts/Homework1/HW1.html#question-1-how-does-a-countrys-latitude-affect-its-average-monthly-temperature-in-a-specific-month-and-year",
     "href": "posts/Homework1/HW1.html#question-1-how-does-a-countrys-latitude-affect-its-average-monthly-temperature-in-a-specific-month-and-year",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Question 1: How does a country’s latitude affect its average monthly temperature in a specific month and year?",
     "text": "Question 1: How does a country’s latitude affect its average monthly temperature in a specific month and year?"
   },
   {
     "objectID": "posts/Homework1/HW1.html#query_climate_database2-function",
     "href": "posts/Homework1/HW1.html#query_climate_database2-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "query_climate_database2() Function:",
     "text": "query_climate_database2() Function:\n\nWe create a function called query_climate_database2() with the following specifications:\nArguments:\n\n\ndb_file: a file of a sql database\nyear: the year that you want to observe data from\nmonth: an integer for the month of the year which the data should be returned\nmin_latitude: the minimum latitude of stations for which should be returned\nmax_latitude: the maximum latitude of stations for which should be returned\n\n\nReturns: a dataframe corresponding to the above specifications, with columns:\n\n\nNAME: the station name\nLATITUDE: the latitude of the station\nCountry: the name of the country where the station is located\nYear: the year when the temperature reading was taken\nMonth: the month when the temperature reading was taken\nTemp: the average temperature at the specified station during the specified year and month\n\n\nThe code for the query_climate_database2() function is contained in a separate file called “climate_database.py”.\nWe load in the function and display the code below.\n\n\nfrom climate_database import query_climate_database2\nprint(inspect.getsource(query_climate_database2))\n\ndef query_climate_database2(db_file, year, month, min_latitude, max_latitude):\n    with sqlite3.connect(db_file) as conn:\n        cmd = \\\n        f\"\"\"\n        SELECT \n            stations.NAME, stations.LATITUDE, countries.Name \"Country\", temperatures.Year, temperatures.Month, temperatures.Temp\n        FROM \n            stations\n        INNER JOIN \n            countries ON SUBSTRING(stations.ID, 1, 2) = countries.[FIPS 10-4]\n        JOIN\n            temperatures ON stations.ID = temperatures.ID\n        WHERE\n            temperatures.Year = {year}\n            AND\n            temperatures.Month = {month}\n            AND\n            stations.LATITUDE BETWEEN {min_latitude} AND {max_latitude}\n        \"\"\"\n        df = pd.read_sql_query(cmd, conn)\n    \n    return df"
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-query_climate_database2-function",
     "href": "posts/Homework1/HW1.html#testing-query_climate_database2-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing query_climate_database2() Function:",
     "text": "Testing query_climate_database2() Function:\n\nWe will now test the function, displaying the dataframe that we get using db_file = “hw1.db” (the database created above, year = 2003, month = 1, min_latitude = 0, max_latitude = 30.\nThis will give us a dataframe of all the database recordings in January of 2003 from stations with latitude between 0 and 30.\n\n\nquery_climate_database2(db_file = \"hw1.db\", \n                        year = 2003, \n                        month = 1, \n                        min_latitude = 0, \n                        max_latitude = 30)\n\n\n\n\n\n\n\n\nNAME\nLATITUDE\nCountry\nYear\nMonth\nTemp\n\n\n\n\n0\nDUBAI_INTL\n25.2550\nUnited Arab Emirates\n2003\n1\n19.39\n\n\n1\nABU_DHABI_INTL\n24.4330\nUnited Arab Emirates\n2003\n1\n19.64\n\n\n2\nAL_AIN_INTL\n24.2620\nUnited Arab Emirates\n2003\n1\n18.45\n\n\n3\nIN_AMENAS\n28.0500\nAlgeria\n2003\n1\n11.95\n\n\n4\nTAMANRASSET\n22.8000\nAlgeria\n2003\n1\n14.20\n\n\n...\n...\n...\n...\n...\n...\n...\n\n\n1115\nCHRISTIANSTED_AP\n17.7028\nVirgin Islands, U.S.\n2003\n1\n26.28\n\n\n1116\nCHARLOTTE_AMALIE_AP\n18.3331\nVirgin Islands, U.S.\n2003\n1\n26.36\n\n\n1117\nVILLA_CISNEROSMIL\n23.7000\nWestern Sahara\n2003\n1\n18.35\n\n\n1118\nDAKHLA\n23.7110\nWestern Sahara\n2003\n1\n17.53\n\n\n1119\nWAKE_ISLAND\n19.2833\nWake Island\n2003\n1\n26.16\n\n\n\n\n1120 rows × 6 columns"
   },
   {
     "objectID": "posts/Homework1/HW1.html#temperature_latitude_plot-function",
     "href": "posts/Homework1/HW1.html#temperature_latitude_plot-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "temperature_latitude_plot() Function:",
     "text": "temperature_latitude_plot() Function:\n\nArguments:\n\n\ndb_file: a file of a sql database\nyear: the year that you want to observe data from\nmonth: an integer for the month of the year which the data should be returned\nmin_latitude: the minimum latitude of stations for which should be returned\nmax_latitude: the maximum latitude of stations for which should be returned\n**kwargs: addition arguments to be used in plt.plot function\n\n\nReturns:\n\n\nAn interactive scatterplot with station latitude on the x-axis and station average temperature for the specified month and year on the y-axis. The points are colored by country.\n\n\nfrom climate_database import temperature_latitude_plot\nprint(inspect.getsource(temperature_latitude_plot))\n\ndef temperature_latitude_plot(db_file, year, month, min_latitude, max_latitude, **kwargs):\n    df = query_climate_database2(db_file, year, month, min_latitude, max_latitude)\n    \n    return px.scatter(data_frame = df, x = \"LATITUDE\", y = \"Temp\", \n                      color = \"Country\",\n                      hover_name = \"NAME\", \n                      title = f\"Station Average Temperature by Latitude in Month {month} of {year}\",\n                      labels = {\"LATITUDE\":\"Latitude\", \"Temp\":\"Average Temperature\"},\n                      **kwargs)"
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-temperature_latitude_plot-function",
     "href": "posts/Homework1/HW1.html#testing-temperature_latitude_plot-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing temperature_latitude_plot() Function:",
     "text": "Testing temperature_latitude_plot() Function:\n\nWe will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), year = 2003, month = 1, min_latitude = 0, max_latitude = 30, size = “Year”, size_max = 7.\nThis will give us a scatterplot of the station temperature recordings in stations with latitudes between 0 and 30 vs the latitude of the station. The points will be colored by country. The specifications of the scatterplot plot are marker size (I made the marker size year so they would all be the same size) and max marker size (7).\n\n\ntemperature_latitude_plot(db_file = \"hw1.db\", \n                          year = 2003, \n                          month = 1, \n                          min_latitude = 0, \n                          max_latitude = 30, \n                          size = \"Year\", \n                          size_max = 7)\n\n\n\n\n\nThis visualization makes it apparent that the average temperature in January of 2003 decreases as we move up in latitude. This makes sense intuitively because a greater latitude means a further distance from the equator, so we would expect temperatures to decrease as we move away from the equator.\nHowever, this relationship shows a lot of variation, which indicates that distance from the equator is not the only factor in the increasing temperatures."
   },
   {
     "objectID": "posts/Homework1/HW1.html#question-2-can-we-compare-the-average-temperature-recorded-at-stations-in-different-selected-countries",
     "href": "posts/Homework1/HW1.html#question-2-can-we-compare-the-average-temperature-recorded-at-stations-in-different-selected-countries",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Question 2: Can we compare the average temperature recorded at stations in different selected countries?",
     "text": "Question 2: Can we compare the average temperature recorded at stations in different selected countries?"
   },
   {
     "objectID": "posts/Homework1/HW1.html#query_climate_database3-function",
     "href": "posts/Homework1/HW1.html#query_climate_database3-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "query_climate_database3() Function:",
     "text": "query_climate_database3() Function:\n\nWe create a function called query_climate_database3() with the following specifications:\nArguments:\n\n\ndb_file: a file of a sql database\ncountries: a list of countries that will be compared\nyear: the year that you want to observe data from\nmonth: an integer for the month of the year which the data should be returned\n\n\nReturns: a dataframe corresponding to the above specifications, with columns:\n\n\nNAME: the station name\nCountry: the name of the country where the station is located\nYear: the year when the temperature reading was taken\nMonth: the month when the temperature reading was taken\nTemp: the average temperature at the specified station during the specified year and month\n\n\nThe code for the query_climate_database3() function is contained in a separate file called “climate_database.py”.\nWe load in the function and display the code below.\n\n\nfrom climate_database import query_climate_database3\nprint(inspect.getsource(query_climate_database3))\n\ndef query_climate_database3(db_file, countries, year, month):\n    with sqlite3.connect(db_file) as conn:\n        cmd = \\\n        f\"\"\"\n        SELECT \n            stations.NAME, countries.Name \"Country\", temperatures.Year, temperatures.Month, temperatures.Temp\n        FROM \n            stations\n        INNER JOIN \n            countries ON SUBSTRING(stations.ID, 1, 2) = countries.[FIPS 10-4]\n        JOIN\n            temperatures ON stations.ID = temperatures.ID\n        WHERE \n            countries.Name IN {prepare_list_for_sql(countries)}\n            AND \n            temperatures.Year = {year}\n            AND\n            temperatures.Month = {month}\n        \"\"\"\n        df = pd.read_sql_query(cmd, conn)\n    \n    return(df)"
   },
   {
     "objectID": "posts/Homework1/HW1.html#prepare_list_for_sql-helper-function",
     "href": "posts/Homework1/HW1.html#prepare_list_for_sql-helper-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "prepare_list_for_sql() Helper Function:",
     "text": "prepare_list_for_sql() Helper Function:\n\nLooking at the code for the query_climate_database3() function above, we had to apply a function to the countries list that is inputted to allow it to be used the the query. The specifics of that function are outlined here.\nArgument:\n\n\ncharacter_list: a list of country names\n\n\nReturns:\n\n\nA string of the list elements enclosed in parentheses and separated by commas, which is suitable for usage in a sql query.\n\n\nThe code for the prepare_list_for_sql() function is contained in a separate file called “climate_database.py”.\nWe load in the function and display the code below.\n\n\nfrom climate_database import prepare_list_for_sql\nprint(inspect.getsource(prepare_list_for_sql))\n\ndef prepare_list_for_sql(character_list):\n    return f\"\"\"('{\"', '\".join(character_list)}')\"\"\""
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-prepare_list_for_sql-helper-function",
     "href": "posts/Homework1/HW1.html#testing-prepare_list_for_sql-helper-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing prepare_list_for_sql() Helper Function:",
     "text": "Testing prepare_list_for_sql() Helper Function:\n\nWe will now test the function, displaying the output that the function gives for the list of countries [“Egypt”, “India”, “United States”].\n\n\nprepare_list_for_sql([\"Egypt\", \"India\", \"United States\"])\n\n\"('Egypt', 'India', 'United States')\"\n\n\n\nThis form is suitable for the IN function in a sql query."
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-query_climate_database3-function",
     "href": "posts/Homework1/HW1.html#testing-query_climate_database3-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing query_climate_database3() Function:",
     "text": "Testing query_climate_database3() Function:\n\nWe will now test the function, displaying the dataframe that we get using db_file = “hw1.db” (the database created above, year = 2003, month = 1, and countries = [“Egypt”, “India”, “United States”].\nThis will give us a dataframe of all the database temeperature recordings in January of 2003 from Egypt, India, and the United States.\n\n\nquery_climate_database3(db_file = \"hw1.db\", \n                        year = 2003, \n                        month = 1, \n                        countries = [\"Egypt\", \"India\", \"United States\"])\n\n\n\n\n\n\n\n\nNAME\nCountry\nYear\nMonth\nTemp\n\n\n\n\n0\nMERSA_MATRUH\nEgypt\n2003\n1\n15.50\n\n\n1\nASSWAN\nEgypt\n2003\n1\n18.30\n\n\n2\nSIWA\nEgypt\n2003\n1\n13.67\n\n\n3\nDAKHLA\nEgypt\n2003\n1\n15.12\n\n\n4\nHURGUADA\nEgypt\n2003\n1\n18.45\n\n\n...\n...\n...\n...\n...\n...\n\n\n6757\nGRAND_MARAIS\nUnited States\n2003\n1\n-10.14\n\n\n6758\nSISSETON_MUNI_AP\nUnited States\n2003\n1\n-10.37\n\n\n6759\nBOSCOBEL_AP\nUnited States\n2003\n1\n-7.33\n\n\n6760\nLINCOLN_8_ENE\nUnited States\n2003\n1\n-4.32\n\n\n6761\nLINCOLN_11_SW\nUnited States\n2003\n1\n-3.64\n\n\n\n\n6762 rows × 5 columns"
   },
   {
     "objectID": "posts/Homework1/HW1.html#countries_compare_temp_plot-function",
     "href": "posts/Homework1/HW1.html#countries_compare_temp_plot-function",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "countries_compare_temp_plot() Function:",
     "text": "countries_compare_temp_plot() Function:\n\nArguments:\n\n\ndb_file: a file of a sql database\ncountries: a list of countries that will be compared\nyear: the year that you want to observe data from\nmonth: an integer for the month of the year which the data should be returned\n\n\nReturns:\n\n\nA bar plot with each bar representing a country and the height of the bar representing the median temperature of all stations in that country in the given month and year.\n\n\nThe code for the countries_compare_temp_plot() function is contained in a separate file called “climate_database.py”.\nWe load in the function and display the code below.\n\n\nfrom climate_database import countries_compare_temp_plot\nprint(inspect.getsource(countries_compare_temp_plot))\n\ndef countries_compare_temp_plot(db_file, countries, year, month, **kwargs):\n    df = query_climate_database3(db_file, countries, year, month)\n    df = df.groupby(\"Country\")[\"Temp\"].median()\n    df2 = pd.DataFrame({\"Country\":df.index, \"Temp\":df.values})\n    \n    return px.bar(data_frame = df2, x = \"Country\", y = \"Temp\", \n                  title = f\"Average Temperature by Country in Month {month} of {year}\", \n                  labels = {\"Temp\":f\"Average Temperature in Month {month} of {year}\"}, \n                  **kwargs)"
   },
   {
     "objectID": "posts/Homework1/HW1.html#testing-temperature_latitude_plot-function-1",
     "href": "posts/Homework1/HW1.html#testing-temperature_latitude_plot-function-1",
-    "title": "Analysis of Temperature Data for Different Countries",
+    "title": "Analysis of Historic Temperature Data for Different Countries",
     "section": "Testing temperature_latitude_plot() Function:",
     "text": "Testing temperature_latitude_plot() Function:\n\nWe will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), year = 2020, month = 1, opacity = 0.8, color = “Country”.\nThis will give us a barplot with each bar representing a country and the heights of the bars representing the average temperature in that country in January of 2020. The specifications of the scatterplot plot are bar opacity (0.8) and bar color (different for each country).\n\n\ncountries_compare_temp_plot(db_file = \"hw1.db\", \n                            countries = [\"India\", \"Egypt\", \"United States\"], \n                            year = 2020, \n                            month = 1, \n                            opacity = 0.8, \n                            color = \"Country\")\n\n\n\n\n\nThe function works as intended, clearly displaying the difference in average temperatures in January of 2020 in Egypt, India, and the United States.\nIt is apparent that India was significantly hotter than the United States and Egypt in January of 2020.\nComparisons such as there can be very useful when considering differences in climate between different countries."
   },
@@ -172,6 +172,6 @@
     "href": "index.html",
     "title": "PIC 16B Website - Trent Bellinger",
     "section": "",
-    "text": "Analysis of Temperature Data for Different Countries\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 29, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 0\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 13, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\nNo matching items"
+    "text": "Analysis of Historic Temperature Data for Different Countries\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 29, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 0\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 13, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\nNo matching items"
   }
 ]
