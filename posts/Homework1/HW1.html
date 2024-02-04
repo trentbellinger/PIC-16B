@@ -429,16 +429,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div id="ce000dbd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prepare_df(df):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.set_index(keys<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"Year"</span>])</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.stack()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.reset_index()</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns <span class="op">=</span> {<span class="st">"level_2"</span>  : <span class="st">"Month"</span> , <span class="dv">0</span> : <span class="st">"Temp"</span>})</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Month"</span>] <span class="op">=</span> df[<span class="st">"Month"</span>].<span class="bu">str</span>[<span class="dv">5</span>:].astype(<span class="bu">int</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Temp"</span>]  <span class="op">=</span> df[<span class="st">"Temp"</span>] <span class="op">/</span> <span class="dv">100</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(df)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>temps <span class="op">=</span> prepare_df(temps)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>temps.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns a temperature dataframe in a more suitable format for analysis.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Arguments:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">        df (Pandas dataframe): the temps dataframe shown above</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">        df (Pandas dataframe): a temps dataframe with columns ID, Year, Month, and Temp</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.set_index(keys<span class="op">=</span>[<span class="st">"ID"</span>, <span class="st">"Year"</span>])</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.stack()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.reset_index()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns <span class="op">=</span> {<span class="st">"level_2"</span>  : <span class="st">"Month"</span> , <span class="dv">0</span> : <span class="st">"Temp"</span>})</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Month"</span>] <span class="op">=</span> df[<span class="st">"Month"</span>].<span class="bu">str</span>[<span class="dv">5</span>:].astype(<span class="bu">int</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Temp"</span>]  <span class="op">=</span> df[<span class="st">"Temp"</span>] <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(df)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>temps <span class="op">=</span> prepare_df(temps)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>temps.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -612,6 +621,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(query_climate_database))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def query_climate_database(db_file, country, year_begin, year_end, month):
+    '''
+    Returns a Pandas dataframe of temperature readings for the specified country, in the specified date range, 
+    in the specified month of the year. This data comes from a SQL database.
+    
+    Arguments: 
+        db_file: a file of a sql database
+        country: the country you want data from
+        year_begin: the earliest year for which data should be returned
+        year_end: the latest year for which data should be returned
+        month: an integer for the month of the year which the data should be returned
+        
+    Returns: a dataframe corresponding to the above specifications, with columns:
+        NAME: the station name
+        LATITUDE: the latitude of the station
+        LONGITUDE: the longitude of the station
+        Country: the name of the country where the station is located
+        Year: the year when the temperature reading was taken
+        Month: the month when the temperature reading was taken
+        Temp: the average temperature at the specified station during the specified year and month
+    '''
     with sqlite3.connect(db_file) as conn:
         cmd = \
         f"""
@@ -815,6 +844,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(temperature_coefficient_plot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def temperature_coefficient_plot(db_file, country, year_begin, year_end, month, min_obs, **kwargs):
+    '''
+    Returns an interactive geographic scatterplot of temperature readings for the specified country, 
+    in the specified date range, in the specified month of the year, with the specified minimum number 
+    of observations.
+    
+    Arguments: 
+        db_file (str): a file of a sql database
+        country (str): the country you want data from
+        year_begin (int): the earliest year for which data should be returned
+        year_end (int): the latest year for which data should be returned
+        month (int): an integer for the month of the year which the data should be returned
+        min_obs (int): the minimum required number of years of data for any given station
+        **kwargs: additional keyword arguments passed to px.scatter_mapbox()
+        
+    Returns: 
+        An interactive geographic scatterplot, constructed using the Plotly Express px.scatter_mapbox, with a point 
+        for each station, such that the color of the point reflects an estimate of the yearly 
+        change in temperature during the specified month and time period at that station.
+    '''
     
     df = query_climate_database(db_file, country, year_begin, year_end, month)
     df = df[df.groupby("NAME")["Year"].transform('nunique') &gt;= min_obs]
@@ -927,6 +975,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(query_climate_database2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def query_climate_database2(db_file, year, month, min_latitude, max_latitude):
+    '''
+    Returns a Pandas dataframe of temperature readings in the specified month of the specified year
+    between the minimum and maximum specified latitudes. This data comes from a SQL database.
+    
+    Arguments:
+        db_file (str): a file of a sql database
+        year (int): the year that you want to observe data from
+        month (str): an integer for the month of the year which the data should be returned
+        min_latitude (dbl): the minimum latitude of stations for which should be returned
+        max_latitude (dbl): the maximum latitude of stations for which should be returned
+        
+    Returns: a dataframe corresponding to the above specifications, with columns:
+        NAME (str): the station name
+        LATITUDE (dbl): the latitude of the station
+        Country (str): the name of the country where the station is located
+        Year (int): the year when the temperature reading was taken
+        Month (int): the month when the temperature reading was taken
+        Temp (dbl): the average temperature at the specified station during the specified year and month
+    '''
     with sqlite3.connect(db_file) as conn:
         cmd = \
         f"""
@@ -1112,6 +1179,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(temperature_latitude_plot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def temperature_latitude_plot(db_file, year, month, min_latitude, max_latitude, **kwargs):
+    '''
+    Returns an interactive scatterplot of average temperature vs. station latitude for stations in a 
+    specified latitude range and a specified month and year.
+    
+    Arguments:
+        db_file: a file of a sql database
+        year: the year that you want to observe data from
+        month: an integer for the month of the year which the data should be returned
+        min_latitude: the minimum latitude of stations for which should be returned
+        max_latitude: the maximum latitude of stations for which should be returned
+        **kwargs: addition arguments to be used in plt.plot function
+        
+    Returns: 
+        An interactive scatterplot with station latitude on the x-axis and station 
+        average temperature for the specified month and year on the y-axis. The points are 
+        colored by country.
+    '''
     df = query_climate_database2(db_file, year, month, min_latitude, max_latitude)
     
     return px.scatter(data_frame = df, x = "LATITUDE", y = "Temp", 
@@ -1147,8 +1231,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>However, this relationship shows a lot of variation, which indicates that distance from the equator is not the only factor in the increasing temperatures.</li>
 </ul>
 </section>
-<section id="question-2-can-we-compare-the-average-temperature-recorded-at-stations-in-different-selected-countries" class="level2">
-<h2 class="anchored" data-anchor-id="question-2-can-we-compare-the-average-temperature-recorded-at-stations-in-different-selected-countries">Question 2: Can we compare the average temperature recorded at stations in different selected countries?</h2>
+<section id="question-2-can-we-compare-the-average-temperature-recorded-at-stations-in-different-selected-countries-in-a-given-year" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-can-we-compare-the-average-temperature-recorded-at-stations-in-different-selected-countries-in-a-given-year">Question 2: Can we compare the average temperature recorded at stations in different selected countries in a given year?</h2>
 </section>
 <section id="query_climate_database3-function" class="level2">
 <h2 class="anchored" data-anchor-id="query_climate_database3-function">query_climate_database3() Function:</h2>
@@ -1180,7 +1264,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> query_climate_database3</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(query_climate_database3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>def query_climate_database3(db_file, countries, year, month):
+<pre><code>def query_climate_database3(db_file, countries, year):
+    '''
+    Returns a Pandas dataframe of temperature readings in the specified year
+    in specified countries. This data comes from a SQL database.
+    
+    Arguments:
+        db_file (str): a file of a sql database
+        countries (list): a list of strings representing country names
+        year (int): the year that you want to observe data from
+        
+    Returns: a dataframe corresponding to the above specifications, with columns:
+        NAME (str): the station name
+        Country (str): the name of the country where the station is located
+        Year (int): the year when the temperature reading was taken
+        Month (int): the month when the temperature reading was taken
+        Temp (dbl): the average temperature at the specified station during the specified year and month
+    '''
     with sqlite3.connect(db_file) as conn:
         cmd = \
         f"""
@@ -1196,8 +1296,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             countries.Name IN {prepare_list_for_sql(countries)}
             AND 
             temperatures.Year = {year}
-            AND
-            temperatures.Month = {month}
         """
         df = pd.read_sql_query(cmd, conn)
     
@@ -1230,6 +1328,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(prepare_list_for_sql))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>def prepare_list_for_sql(character_list):
+    '''
+    Returns a list that is acceptable for subsetting in a SQL query.
+    
+    Arguments:
+        character_list (list): a list of strings representing country names
+        
+    Returns:
+        A list format that is acceptable for subsetting in a SQL query.
+    '''
     return f"""('{"', '".join(character_list)}')"""
 </code></pre>
 </div>
@@ -1253,14 +1360,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="testing-query_climate_database3-function" class="level2">
 <h2 class="anchored" data-anchor-id="testing-query_climate_database3-function">Testing query_climate_database3() Function:</h2>
 <ul>
-<li>We will now test the function, displaying the dataframe that we get using db_file = “hw1.db” (the database created above, year = 2003, month = 1, and countries = [“Egypt”, “India”, “United States”].</li>
-<li>This will give us a dataframe of all the database temeperature recordings in January of 2003 from Egypt, India, and the United States.</li>
+<li>We will now test the function, displaying the dataframe that we get using db_file = “hw1.db” (the database created above, year = 2003, and countries = [“Egypt”, “India”, “United States”].</li>
+<li>This will give us a dataframe of all the database temeperature recordings in 2003 from Egypt, India, and the United States.</li>
 </ul>
 <div id="32b98a36" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>query_climate_database3(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                        year <span class="op">=</span> <span class="dv">2003</span>, </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                        month <span class="op">=</span> <span class="dv">1</span>, </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                        countries <span class="op">=</span> [<span class="st">"Egypt"</span>, <span class="st">"India"</span>, <span class="st">"United States"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                        countries <span class="op">=</span> [<span class="st">"Egypt"</span>, <span class="st">"India"</span>, <span class="st">"United States"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 
@@ -1287,35 +1393,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>ASSWAN</td>
+<td>MERSA_MATRUH</td>
 <td>Egypt</td>
 <td>2003</td>
-<td>1</td>
-<td>18.30</td>
+<td>2</td>
+<td>12.53</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>SIWA</td>
+<td>MERSA_MATRUH</td>
 <td>Egypt</td>
 <td>2003</td>
-<td>1</td>
-<td>13.67</td>
+<td>3</td>
+<td>13.50</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>DAKHLA</td>
+<td>MERSA_MATRUH</td>
 <td>Egypt</td>
 <td>2003</td>
-<td>1</td>
-<td>15.12</td>
+<td>4</td>
+<td>17.30</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>HURGUADA</td>
+<td>MERSA_MATRUH</td>
 <td>Egypt</td>
 <td>2003</td>
-<td>1</td>
-<td>18.45</td>
+<td>5</td>
+<td>21.30</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">...</td>
@@ -1326,49 +1432,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6757</td>
-<td>GRAND_MARAIS</td>
-<td>United States</td>
-<td>2003</td>
-<td>1</td>
-<td>-10.14</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">6758</td>
-<td>SISSETON_MUNI_AP</td>
-<td>United States</td>
-<td>2003</td>
-<td>1</td>
-<td>-10.37</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6759</td>
-<td>BOSCOBEL_AP</td>
-<td>United States</td>
-<td>2003</td>
-<td>1</td>
-<td>-7.33</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">6760</td>
-<td>LINCOLN_8_ENE</td>
-<td>United States</td>
-<td>2003</td>
-<td>1</td>
-<td>-4.32</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6761</td>
+<td data-quarto-table-cell-role="th">83128</td>
 <td>LINCOLN_11_SW</td>
 <td>United States</td>
 <td>2003</td>
-<td>1</td>
-<td>-3.64</td>
+<td>8</td>
+<td>25.01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">83129</td>
+<td>LINCOLN_11_SW</td>
+<td>United States</td>
+<td>2003</td>
+<td>9</td>
+<td>17.08</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">83130</td>
+<td>LINCOLN_11_SW</td>
+<td>United States</td>
+<td>2003</td>
+<td>10</td>
+<td>13.31</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">83131</td>
+<td>LINCOLN_11_SW</td>
+<td>United States</td>
+<td>2003</td>
+<td>11</td>
+<td>2.76</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">83132</td>
+<td>LINCOLN_11_SW</td>
+<td>United States</td>
+<td>2003</td>
+<td>12</td>
+<td>-0.65</td>
 </tr>
 </tbody>
 </table>
 
-<p>6762 rows × 5 columns</p>
+<p>83133 rows × 5 columns</p>
 </div>
 </div>
 </div>
@@ -1376,7 +1482,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="countries_compare_temp_plot-function" class="level2">
 <h2 class="anchored" data-anchor-id="countries_compare_temp_plot-function">countries_compare_temp_plot() Function:</h2>
 <ul>
-<li>Arguments:</li>
+<li><p>This plot will show multiple facets of the data. There will be a different line plot shown for each selected country.</p></li>
+<li><p>Arguments:</p></li>
 </ul>
 <ol type="1">
 <li>db_file: a file of a sql database</li>
@@ -1394,19 +1501,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code for the countries_compare_temp_plot() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="66c21279" class="cell" data-execution_count="20">
+<div id="66c21279" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> countries_compare_temp_plot</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(countries_compare_temp_plot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>def countries_compare_temp_plot(db_file, countries, year, month, **kwargs):
-    df = query_climate_database3(db_file, countries, year, month)
-    df = df.groupby("Country")["Temp"].median()
-    df2 = pd.DataFrame({"Country":df.index, "Temp":df.values})
+<pre><code>def countries_compare_temp_plot(db_file, countries, year, **kwargs):
+    '''
+    Returns multiple line plots, one for each country, that show the temperature in each month.
     
-    return px.bar(data_frame = df2, x = "Country", y = "Temp", 
-                  title = f"Average Temperature by Country in Month {month} of {year}", 
-                  labels = {"Temp":f"Average Temperature in Month {month} of {year}"}, 
-                  **kwargs)
+    Arguments:
+        db_file: a file of a sql database
+        countries: a list of countries that will be compared
+        year: the year that you want to observe data from
+        
+    Returns: 
+        An array of line plots, one for each country. These line plots show the change in average temperature
+        throughout the countries.
+    '''
+    df = query_climate_database3(db_file, countries, year)
+
+    fig = make_subplots(rows = 1, cols = len(countries))
+    
+    for i in range(len(countries)):
+        # get the median temperature for each station in the given country and year
+        df_temp = df[df["Country"] == countries[i]]
+        df_temp = df_temp.groupby("Month")["Temp"].median()
+        df_temp = pd.DataFrame({"Month":df_temp.index, "Temp":df_temp.values})
+        # create a line plot of the current country and add it to the figure
+        plot_temp = go.Scatter(x = df_temp["Month"], y = df_temp["Temp"], 
+                               text = [f"{countries[i]} Month {j} Avg Temp" for j in range(1,13)], 
+                               name = f"{countries[i]} Average Monthly Temperature in {year}")
+        fig.add_trace(plot_temp, row = 1, col = i + 1)
+    
+    return fig
 </code></pre>
 </div>
 </div>
@@ -1417,21 +1544,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), year = 2020, month = 1, opacity = 0.8, color = “Country”.</li>
 <li>This will give us a barplot with each bar representing a country and the heights of the bars representing the average temperature in that country in January of 2020. The specifications of the scatterplot plot are bar opacity (0.8) and bar color (different for each country).</li>
 </ul>
-<div id="01a23b47" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>countries_compare_temp_plot(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                            countries <span class="op">=</span> [<span class="st">"India"</span>, <span class="st">"Egypt"</span>, <span class="st">"United States"</span>], </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                            year <span class="op">=</span> <span class="dv">2020</span>, </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                            month <span class="op">=</span> <span class="dv">1</span>, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                            opacity <span class="op">=</span> <span class="fl">0.8</span>, </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                            color <span class="op">=</span> <span class="st">"Country"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="01a23b47" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> countries_compare_temp_plot(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                                  countries <span class="op">=</span> [<span class="st">"India"</span>, <span class="st">"Egypt"</span>, <span class="st">"United States"</span>], </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                  year <span class="op">=</span> <span class="dv">2020</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_21.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_23.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <ul>
-<li>The function works as intended, clearly displaying the difference in average temperatures in January of 2020 in Egypt, India, and the United States.</li>
-<li>It is apparent that India was significantly hotter than the United States and Egypt in January of 2020.</li>
+<li>The function works as intended, clearly displaying the difference in average temperatures in 2020 between Egypt, India, and the United States.</li>
+<li>It is apparent that both India and Egypt were significantly hotter than the United States in every month of 2020.</li>
+<li>It is also interesting to note that India shows a strange drop in temperature in August and Egypt shows a strange drop in temperature in July, whereas the United States temperatures show a clear bell-shapes pattern throughout the year.</li>
 <li>Comparisons such as there can be very useful when considering differences in climate between different countries.</li>
+<li>This plot shows multiple facets of the data because the year and country are subsetted in the plots.</li>
 </ul>
 
 
