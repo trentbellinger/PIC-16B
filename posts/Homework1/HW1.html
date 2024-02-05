@@ -615,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code for the query_climate_database() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="9c419f84" class="cell" data-execution_count="7">
+<div id="9c419f84" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> query_climate_database</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> inspect</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(query_climate_database))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -669,13 +669,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Now we will do a simple test of the function to display its effectiveness in achieving the goals outlined above. We will check that the function outputs the correct dataframe using db_file = “hw1.db” (the database created above), country = “India”, year_begin = 1980, year_end = 2020, month = 1.</li>
 <li>This should give us data from India in January from 1980-2020.</li>
 </ul>
-<div id="eadd3bde" class="cell" data-scrolled="true" data-execution_count="8">
+<div id="eadd3bde" class="cell" data-scrolled="true" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>query_climate_database(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                       country <span class="op">=</span> <span class="st">"India"</span>, </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                       year_begin <span class="op">=</span> <span class="dv">1980</span>, </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                       year_end <span class="op">=</span> <span class="dv">2020</span>,</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                       month <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -839,7 +839,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code for the temperature_coefficient_plot() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="80bec3b6" class="cell" data-execution_count="9">
+<div id="80bec3b6" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> temperature_coefficient_plot</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(temperature_coefficient_plot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -893,7 +893,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), country = “India”, year_begin = 1980, year_end = 2020, month = 1, min_obs = 10, zoom = 2, mapbox_style = “carto-positron”, color_continuous_scale = px.colors.diverging.RdGy_r.</li>
 <li>This will give us a visualization of the changes in station temperature recordings from 1980 to 2020 in India with specifications of the plot being zoom, mapbox style, and color continuous scale.</li>
 </ul>
-<div id="e2f4923a" class="cell" data-scrolled="true" data-execution_count="10">
+<div id="e2f4923a" class="cell" data-scrolled="true" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>color_map <span class="op">=</span> px.colors.diverging.RdGy_r <span class="co"># choose a colormap</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> temperature_coefficient_plot(<span class="st">"hw1.db"</span>, <span class="st">"India"</span>, <span class="dv">1980</span>, <span class="dv">2020</span>, <span class="dv">1</span>, </span>
@@ -904,7 +904,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_10.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_11.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <ul>
@@ -917,7 +917,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function again, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), country = “United States”, year_begin = 2010, year_end = 2020, month = 1, min_obs = 20, zoom = 2, mapbox_style = “carto-positron”, color_continuous_scale = px.colors.diverging.RdGy_r.</li>
 <li>This will give us a visualization of the changes in station temperature recordings from 2010 to 2020 in the United States with specifications of the plot being zoom, mapbox style, and color continuous scale.</li>
 </ul>
-<div id="95b81987" class="cell" data-scrolled="true" data-execution_count="11">
+<div id="95b81987" class="cell" data-scrolled="true" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig2 <span class="op">=</span> temperature_coefficient_plot(<span class="st">"hw1.db"</span>, <span class="st">"United States"</span>, <span class="dv">2010</span>, <span class="dv">2020</span>, <span class="dv">1</span>, </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                   min_obs <span class="op">=</span> <span class="dv">10</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                   zoom <span class="op">=</span> <span class="dv">2</span>,</span>
@@ -926,7 +926,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>fig2.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_11.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_12.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <ul>
@@ -970,7 +970,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code for the query_climate_database2() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="2cd43d9b" class="cell" data-execution_count="12">
+<div id="2cd43d9b" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> query_climate_database2</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(query_climate_database2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1025,13 +1025,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function, displaying the dataframe that we get using db_file = “hw1.db” (the database created above, year = 2003, month = 1, min_latitude = 0, max_latitude = 30.</li>
 <li>This will give us a dataframe of all the database recordings in January of 2003 from stations with latitude between 0 and 30.</li>
 </ul>
-<div id="021f5386" class="cell" data-execution_count="13">
+<div id="021f5386" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>query_climate_database2(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                        year <span class="op">=</span> <span class="dv">2003</span>, </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                        month <span class="op">=</span> <span class="dv">1</span>, </span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                        min_latitude <span class="op">=</span> <span class="dv">0</span>, </span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                        max_latitude <span class="op">=</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -1174,7 +1174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>An interactive scatterplot with station latitude on the x-axis and station average temperature for the specified month and year on the y-axis. The points are colored by country.</li>
 </ol>
-<div id="fcb258a9" class="cell" data-execution_count="14">
+<div id="fcb258a9" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> temperature_latitude_plot</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(temperature_latitude_plot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1214,7 +1214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), year = 2003, month = 1, min_latitude = 0, max_latitude = 30, size = “Year”, size_max = 7.</li>
 <li>This will give us a scatterplot of the station temperature recordings in stations with latitudes between 0 and 30 vs the latitude of the station. The points will be colored by country. The specifications of the scatterplot plot are marker size (I made the marker size year so they would all be the same size) and max marker size (7).</li>
 </ul>
-<div id="c55c4681" class="cell" data-execution_count="15">
+<div id="c55c4681" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>temperature_latitude_plot(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                          year <span class="op">=</span> <span class="dv">2003</span>, </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                          month <span class="op">=</span> <span class="dv">1</span>, </span>
@@ -1223,7 +1223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                          size <span class="op">=</span> <span class="st">"Year"</span>, </span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                          size_max <span class="op">=</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_15.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_16.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <ul>
@@ -1260,7 +1260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code for the query_climate_database3() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="ba38e84b" class="cell" data-execution_count="16">
+<div id="ba38e84b" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> query_climate_database3</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(query_climate_database3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1323,7 +1323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code for the prepare_list_for_sql() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="ad21674f" class="cell" data-execution_count="17">
+<div id="ad21674f" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> prepare_list_for_sql</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(prepare_list_for_sql))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1347,9 +1347,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>We will now test the function, displaying the output that the function gives for the list of countries [“Egypt”, “India”, “United States”].</li>
 </ul>
-<div id="99e76417" class="cell" data-execution_count="18">
+<div id="99e76417" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>prepare_list_for_sql([<span class="st">"Egypt"</span>, <span class="st">"India"</span>, <span class="st">"United States"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>"('Egypt', 'India', 'United States')"</code></pre>
 </div>
 </div>
@@ -1363,11 +1363,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function, displaying the dataframe that we get using db_file = “hw1.db” (the database created above, year = 2003, and countries = [“Egypt”, “India”, “United States”].</li>
 <li>This will give us a dataframe of all the database temeperature recordings in 2003 from Egypt, India, and the United States.</li>
 </ul>
-<div id="32b98a36" class="cell" data-execution_count="19">
+<div id="32b98a36" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>query_climate_database3(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                        year <span class="op">=</span> <span class="dv">2003</span>, </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                        countries <span class="op">=</span> [<span class="st">"Egypt"</span>, <span class="st">"India"</span>, <span class="st">"United States"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 
 
@@ -1495,13 +1495,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Returns:</li>
 </ul>
 <ol type="1">
-<li>A bar plot with each bar representing a country and the height of the bar representing the median temperature of all stations in that country in the given month and year.</li>
+<li>An array of interactive line plots, one for each country. These line plots show the change in average temperature throughout the selected year in the countries.</li>
 </ol>
 <ul>
 <li>The code for the countries_compare_temp_plot() function is contained in a separate file called “climate_database.py”.</li>
 <li>We load in the function and display the code below.</li>
 </ul>
-<div id="66c21279" class="cell" data-execution_count="22">
+<div id="66c21279" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> climate_database <span class="im">import</span> countries_compare_temp_plot</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(inspect.getsource(countries_compare_temp_plot))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1510,30 +1510,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     Returns multiple line plots, one for each country, that show the temperature in each month.
     
     Arguments:
-        db_file: a file of a sql database
-        countries: a list of countries that will be compared
-        year: the year that you want to observe data from
+        db_file (str): a file of a sql database
+        countries (list): a list of countries that will be compared
+        year (int): the year that you want to observe data from
+        **kwargs: additional arguments for the px.line function
         
     Returns: 
         An array of line plots, one for each country. These line plots show the change in average temperature
         throughout the countries.
     '''
     df = query_climate_database3(db_file, countries, year)
-
-    fig = make_subplots(rows = 1, cols = len(countries))
     
-    for i in range(len(countries)):
-        # get the median temperature for each station in the given country and year
-        df_temp = df[df["Country"] == countries[i]]
-        df_temp = df_temp.groupby("Month")["Temp"].median()
-        df_temp = pd.DataFrame({"Month":df_temp.index, "Temp":df_temp.values})
-        # create a line plot of the current country and add it to the figure
-        plot_temp = go.Scatter(x = df_temp["Month"], y = df_temp["Temp"], 
-                               text = [f"{countries[i]} Month {j} Avg Temp" for j in range(1,13)], 
-                               name = f"{countries[i]} Average Monthly Temperature in {year}")
-        fig.add_trace(plot_temp, row = 1, col = i + 1)
+    # get the median temperature recording for each month in each country
+    df_temp = df.groupby(["Country", "Month"])["Temp"].median()
     
-    return fig
+    # create a dataframe that can be used in the px.line function
+    df_temp = pd.DataFrame({"Country":[ele for ele in countries for i in range(12)], 
+                            "Month":[1,2,3,4,5,6,7,8,9,10,11,12] * len(countries), 
+                            "Avg Temp":df_temp.values})
+    
+    return px.line(df_temp, x="Month", y="Avg Temp", color="Country",
+                   facet_col="Country",
+                   title="Chaining Multiple Figure Operations With A Plotly Express Figure", 
+                   hover_data = "Avg Temp",
+                   **kwargs)
 </code></pre>
 </div>
 </div>
@@ -1544,13 +1544,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now test the function, displaying the visualization that the function gives using db_file = “hw1.db” (the database created above), year = 2020, month = 1, opacity = 0.8, color = “Country”.</li>
 <li>This will give us a barplot with each bar representing a country and the heights of the bars representing the average temperature in that country in January of 2020. The specifications of the scatterplot plot are bar opacity (0.8) and bar color (different for each country).</li>
 </ul>
-<div id="01a23b47" class="cell" data-execution_count="23">
+<div id="01a23b47" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> countries_compare_temp_plot(db_file <span class="op">=</span> <span class="st">"hw1.db"</span>, </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                                  countries <span class="op">=</span> [<span class="st">"India"</span>, <span class="st">"Egypt"</span>, <span class="st">"United States"</span>], </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                  year <span class="op">=</span> <span class="dv">2020</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                                  year <span class="op">=</span> <span class="dv">2020</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                                  markers <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_23.html" frameborder="0" allowfullscreen=""></iframe>
+<iframe scrolling="no" width="100%" height="545px" src="iframe_figures/figure_27.html" frameborder="0" allowfullscreen=""></iframe>
 </div>
 </div>
 <ul>
@@ -1559,7 +1560,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It is also interesting to note that India shows a strange drop in temperature in August and Egypt shows a strange drop in temperature in July, whereas the United States temperatures show a clear bell-shapes pattern throughout the year.</li>
 <li>Comparisons such as there can be very useful when considering differences in climate between different countries.</li>
 <li>This plot shows multiple facets of the data because the year and country are subsetted in the plots.</li>
-<li>As a sidenote: this functionality that I used to create the subplots in the figure did not allow me to create axis labels or titles for the individual plots. The specifications for each of the data points can be found by hovering over the data point in the interactive plot.</li>
 </ul>
 
 
