@@ -196,6 +196,104 @@
     "text": "Recommendations for Good Will Hunting\n\nUsing the results2.csv dataframe imported above, I will create a dataframe with two columns “movie or TV name” and “number of shared actors” using the recommend_dataframe() function.\n\n\nrecommendations2 = recommend_dataframe(results2)\nrecommendations2\n\n\n\n\n\n\n\n\nmovie or TV name\nnumber of shared actors\n\n\n\n\n0\n'Saving Private Ryan': Boot Camp\n1\n\n\n1\n...First Do No Harm\n1\n\n\n2\n10-8: Officers on Duty\n1\n\n\n3\n11 Colours of the Bird\n1\n\n\n4\n12 Dates of Christmas\n1\n\n\n...\n...\n...\n\n\n1275\nZerophilia\n1\n\n\n1276\neXistenZ\n1\n\n\n1277\nmid90s\n1\n\n\n1278\nÅke and His World\n1\n\n\n1279\n알아두면 쓸데없는 지구별 잡학사전\n1\n\n\n\n\n1280 rows × 2 columns\n\n\n\n\nWe can again see that our function works in creating the dataframe with the two desired columns.\nWe will now sort by movies or tv shows that have more than 3 shared actors with Good Will Hunting.\n\n\nrecommendations2.loc[recommendations2[\"number of shared actors\"] &gt; 3,:]\n\n\n\n\n\n\n\n\nmovie or TV name\nnumber of shared actors\n\n\n\n\n285\nDue South\n6\n\n\n316\nFX: The Series\n4\n\n\n394\nGood Will Hunting\n49\n\n\n512\nJimmy Kimmel Live!\n4\n\n\n541\nLIVE with Kelly and Mark\n4\n\n\n606\nMayday\n5\n\n\n803\nSaturday Night Live\n5\n\n\n812\nSchool Ties\n4\n\n\n885\nSue Thomas: F.B.Eye\n4\n\n\n888\nSuits\n4\n\n\n1003\nThe Graham Norton Show\n4\n\n\n1071\nThe Oscars\n4\n\n\n1131\nThe Tonight Show with Jay Leno\n4\n\n\n1140\nThe View\n4\n\n\n1228\nWar of the Worlds\n4\n\n\n\n\n\n\n\n\nWe can see that there are 14 movies and TV shows that have more than 3 shared actors with Good Will Hunting.\nI would reccomend these movies to people who enjoy Good Will Hunting because the actors are very similar (more than 3 matches).\nWe will now use the recommend_barplot() function to visualize the data presented above.\n\n\nrecommend_barplot(df = recommendations2, \n                  movie = \"Good Will Hunting\", \n                  min_num_shared_actors = 3)\n\n\n\n\n\n\n\n\n\nFrom the bar plot above, we can see that the movies or TV shows that share the most actors with Good Will Hunting are “Due South”, “Mayday”, and “Saturday Night Live”. We would recommend these shows the most to Good Will Hunting fans."
   },
   {
+    "objectID": "posts/Homework3/HW3.html#github-link",
+    "href": "posts/Homework3/HW3.html#github-link",
+    "title": "Flask Website With User Inputs",
+    "section": "Github Link:",
+    "text": "Github Link:\nhttps://github.com/trentbellinger/PIC16B-HW3"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#blog-post-link",
+    "href": "posts/Homework3/HW3.html#blog-post-link",
+    "title": "Flask Website With User Inputs",
+    "section": "Blog Post Link:",
+    "text": "Blog Post Link:"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-app.py-header",
+    "href": "posts/Homework3/HW3.html#the-app.py-header",
+    "title": "Flask Website With User Inputs",
+    "section": "The app.py Header",
+    "text": "The app.py Header\n\nThe first thing that is needed in the python file for the app is an appropriate header that imports the necessary packages/functions and initializes the app. This header is shown below:\n\n\nfrom flask import Flask, render_template, request, g\nimport sqlite3\napp = Flask(__name__)"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-get_message_db-function",
+    "href": "posts/Homework3/HW3.html#the-get_message_db-function",
+    "title": "Flask Website With User Inputs",
+    "section": "The get_message_db() Function:",
+    "text": "The get_message_db() Function:\n\nThen, we move on to the creation of the first function in the python file. This function will create a SQL database for the messages that are inputted in the website if none has been created already. If a SQL database already exists, it will simply return that database. The code for this function is shown below:\n\n\ndef get_message_db():\n    '''\n    Handles the creation of a SQL database for the messages that are presented \n    in the website.\n    '''\n    try:\n        return g.message_db\n    except:\n        # if a database is not present, we create one\n        g.message_db = sqlite3.connect(\"messages_db.db\")\n        \n        # if a messages does not exist, create table with columns for handle and text\n        cmd = 'CREATE TABLE IF NOT EXISTS messages (message TEXT, handle TEXT)'\n        \n        cursor = g.message_db.cursor()\n        cursor.execute(cmd)\n        \n        return g.message_db"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-insert_message-function",
+    "href": "posts/Homework3/HW3.html#the-insert_message-function",
+    "title": "Flask Website With User Inputs",
+    "section": "The insert_message() Function:",
+    "text": "The insert_message() Function:\n\nWe will now create a function that takes in a user’s input in the form of a request and inserts the user’s handle into the SQL database that is created with the get_message_db() function created above. The code for this function is shown below:\n\n\ndef insert_message(request):\n    '''\n    Extracts the message and handle from a request and inserts them into the messages \n    database.\n    Arguments:\n        request: a request that the user inputs to the webpage\n    Returns:\n        the message and handle from the request\n    '''\n    message = request.form[\"message\"]\n    handle = request.form[\"handle\"]\n    \n    db = get_message_db()\n    cursor = db.cursor()\n    \n    # insert the handle and message into the database\n    ins = f'INSERT INTO messages (message, handle) VALUES (\"{message}\", \"{handle}\")'\n    cursor.execute(ins)\n    # commit the changes and close the connection\n    db.commit()\n    db.close()"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-random_messages-function",
+    "href": "posts/Homework3/HW3.html#the-random_messages-function",
+    "title": "Flask Website With User Inputs",
+    "section": "The random_messages() Function:",
+    "text": "The random_messages() Function:\n\nNow that we have a way to insert the user inputs into the database, we will create a function that allows us to extract random messages from the database.\nThe function random_messages(), shown below, outputs a list of the handles and messages for the n random entries of the database that are selected. If the database has less than n entries, then all of the handles and messages will be returned.\n\n\ndef random_messages(n):\n    '''\n    Returns a collection of n random messages that have been previously inputted \n    into the app.\n    Arguments:\n        n (int): the number of random messages to return\n    Returns:\n        messages (list): contains the name and message for the n random messages\n    '''\n    # Get the database connection\n    db = get_message_db()\n    cursor = db.cursor()\n\n    # select the handle and message for n random entries in the messages table\n    cursor.execute(f\"SELECT handle, message FROM messages ORDER BY RANDOM() LIMIT {n}\")\n    # save the message (output[0]) and the handle (output[1]) in a list\n    messages = [[output[0], output[1]] for output in cursor.fetchall()]\n    \n    # close the db connection\n    db.close()\n\n    return messages"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-render_submit_template-function",
+    "href": "posts/Homework3/HW3.html#the-render_submit_template-function",
+    "title": "Flask Website With User Inputs",
+    "section": "The render_submit_template() Function:",
+    "text": "The render_submit_template() Function:\n\nWe now have all the helper function for our website complete, so we can move on to creating functions to display certain pages in the website. OUr website will have two pages.\nThe first page will be a page that allows a user to submit their handle and message. This function most have two cases: GET and POST.\nIn the POST case, the function will insert the user’s inputted message into the database (this functionality is tied to the “Submit message” button in the website) and then render the submit.html file.\nIn the GET case, the function will simply render the submit.html file.\nThe creation of the submit.html file will be outlined later.\nThe code for the first page of the app is shown below:\n\n\n@app.route('/', methods = ['POST', 'GET'])\ndef render_submit_template():\n    '''Renders the submit.html file in the app, accounting for POST and GET requests.'''\n    if request.method == 'POST':\n        # for a POST request, we insert the message into the database\n        insert_message(request)\n        \n        msg = \"Thanks for your submission!\"\n        # render submit.html with a thank you message\n        return render_template('submit.html', msg = msg)\n    else:\n        # for a GET request, simply render submit.html\n        return render_template('submit.html')"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-view_random_messages-function",
+    "href": "posts/Homework3/HW3.html#the-view_random_messages-function",
+    "title": "Flask Website With User Inputs",
+    "section": "The view_random_messages() Function:",
+    "text": "The view_random_messages() Function:\n\nWe now want to create a page that allows users to see past submissions on the website.\nThis will be done by calling the random_messages() function created above and then rendering the view.html file with the outputtes messages.\nThe creation of the view.html file will be outliner later.\nThis code is shown below.\n\n\n@app.route('/view')\ndef view_random_messages():\n    '''\n    Creates a /view page of the app that displays 4 random messages that have been \n    previously inputted along with the name/handle of the person who submitted them.\n    '''\n    # get 4 random messages\n    messages = random_messages(4)\n    # render view.html with the 4 random messages\n    return render_template('view.html', messages = messages)"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#allowing-the-app-to-be-run-locally",
+    "href": "posts/Homework3/HW3.html#allowing-the-app-to-be-run-locally",
+    "title": "Flask Website With User Inputs",
+    "section": "Allowing the App to be Run Locally:",
+    "text": "Allowing the App to be Run Locally:\n\nFinally, we need a place to run the app. The following function allows the app to be run on a local device by simply running the python file in the terminal.\n\n\nif __name__ == '__main__':\n    '''\n    How to run the app. I had to use port=4999 for it to run on my \n    device (5000 was not working).\n    '''\n    app.run(host='0.0.0.0', port=4999, debug=True)\n\n\nThis concludes the creation of the app.py file. We will now move on the the creation of the html files, which are the display of the website."
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-base.html-file",
+    "href": "posts/Homework3/HW3.html#the-base.html-file",
+    "title": "Flask Website With User Inputs",
+    "section": "The base.html File:",
+    "text": "The base.html File:\n\nThe first html file that we must write is called base.html, which will contain the header for each page of the website.\nThe html code for this file is shown here. A breakdown of this code is given below the code.\n\n\n#1:  &lt;!doctype html&gt;\n#2:  &lt;html&gt;\n#3:  &lt;link rel=\"stylesheet\" href=\"{{ url_for('static', filename='style.css') }}\"&gt;\n\n#4:  &lt;h2&gt;A Simple Message Bank&lt;/h2&gt;\n\n#5:  &lt;nav&gt;\n#6:     &lt;!-- &lt;b&gt;Navigation:&lt;/b&gt; --&gt;\n#7:        &lt;ul&gt;\n#8:           &lt;li&gt;&lt;a href=\"{{ url_for('render_submit_template') }}\"&gt;Submit a Message&lt;/a&gt;&lt;/li&gt;\n#9:           &lt;li&gt;&lt;a href=\"{{ url_for('view_random_messages')}}\"&gt;View Messages&lt;/a&gt;&lt;/li&gt;\n#10:       &lt;/ul&gt;\n\n#11: &lt;section class=\"content\"&gt;\n#12:    &lt;header&gt;\n#13.       {% block header %}{% endblock %}\n#14.    &lt;/header&gt;\n#15.       {% block content %}{% endblock %}\n#16. &lt;/section&gt;\n#17. &lt;/html&gt;\n\n\nLine 3: This line establishes the style of the website. The guidelines for the style are contained in the style.css file which we will go over later.\nLine 4: The header starts with a title: Simple Message Bank.\nLines 5-10: These lines create a block that will show the urls to move to another page on the website.\nLine 8: This line creates a link called “Submit a Message” that calls the render_submit_template() function created in the app.py file.\nLine 9: This line creates a link called “View Messages” that calls the view_random_messages() function created in the app.py file.\nLines 11-16: Create a block that will contain the information from the other html files.\nLine 13: This will contain the “header” block of the other html files.\nLine 15: This will cintain the “content” block of the other html files."
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-submit.html-file",
+    "href": "posts/Homework3/HW3.html#the-submit.html-file",
+    "title": "Flask Website With User Inputs",
+    "section": "The submit.html File:",
+    "text": "The submit.html File:\n\nWe will now create the submit.html file, which creates a webpage where the user can submit their handle and message.\nThe html code for this file is shown here. A breakdown of this code is given below the code.\n\n\n#1.  &lt;!doctype html&gt;\n#2.  &lt;html&gt;\n#3.  {% extends 'base.html' %}\n#4.     &lt;body&gt;\n         \n#5.        {% block header %}\n#6.           &lt;h2&gt;Submit&lt;/h2&gt;\n#7.        {% endblock %}\n#8.        {% block content %}\n#9.           &lt;form action = \"{{ url_for('render_submit_template') }}\" method = \"POST\"&gt;\n\n#10.             Your message:&lt;br&gt;\n#11.             &lt;input type = \"text\" name = \"message\" id = \"message\" /&gt;&lt;/br&gt;\n\n#12.             Your name or handle:&lt;br&gt;\n#13.             &lt;input type = \"text\" name = \"handle\" id = \"handle\" /&gt;&lt;/br&gt;\n\n#14.             &lt;input type = \"submit\" value = \"Submit message\" /&gt;&lt;br&gt;\n#15.          &lt;/form&gt;\n         \n#16.          &lt;h3&gt;{{ msg }}&lt;/h3&gt;\n#17.       {% endblock %}\n\n#18.    &lt;/body&gt;\n#19. &lt;/html&gt;\n\n\nLine 3: Makes the header of this webpage the header that is outlined in the base.html file above.\nLines 5-7: Fill in the “block header” portion of the base.html file.\nLine 6: Make “Submit” the title of this webpage block.\nLines 8-17: Fill in the “block content” portion of the base.html file.\nLine 9: Specify that the function of this webpage is to run the render_submit_template() function in the app.py file with the POST method.\nLines 10-11: Create a text box labeled “Your massage:” that allows a user to submit a message, binding their input to the object names “message”.\nLines 12-13: Create a text box labeled “Your name or handle:” that allows a user to submit a their name or handle, binding their input to the object names “handle”.\nLine 14: Create a button labeles “Submit message” that a user presses to submit thier entry, running the render_submit_template() function, which adds the entry to the SQL database.\nLine 16: Option for an additional message to be outputted once the user submits their message."
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#the-view.html-file",
+    "href": "posts/Homework3/HW3.html#the-view.html-file",
+    "title": "Flask Website With User Inputs",
+    "section": "The view.html File:",
+    "text": "The view.html File:\n\nWe will now create the view.html file, which creates a webpage where the user can view 4 random previous entries to the website. This is the last html file that is needed for our website.\nThe html code for this file is shown here. A breakdown of this code is given below the code.\n\n\n#1.  &lt;!doctype html&gt;\n#2.  &lt;html&gt;\n#3.  {% extends 'base.html' %}\n#4.     &lt;body&gt;\n\n#5.        {% block header %}\n#6.           &lt;h2&gt;Some Cool Messages&lt;/h2&gt;\n#7.        {% endblock %}\n         \n#8.        {% block content %}\n#9.           {% if messages %}\n#10.             &lt;p&gt;\n#11.                {% for message in messages %}\n#12.                   &lt;p&gt;\n#13.                      &lt;br&gt;&lt;strong&gt;\"{{message[1]}}\"&lt;/strong&gt;&lt;/br&gt;\n#14.                      &lt;i&gt;-{{message[0]}}&lt;/i&gt;\n#15.                   &lt;/p&gt;\n#16.                {% endfor %}\n#17.             &lt;/p&gt;\n#18.          {% else %}\n#19.             &lt;p&gt;No messages available.&lt;/p&gt;\n#20.          {% endif %}      \n#21.       {% endblock %}\n\n#22.       &lt;/form&gt;\n\n#23.    &lt;/body&gt;\n#24. &lt;/html&gt;\n\n\nLine 3: Makes the header of this webpage the header that is outlined in the base.html file above.\nLines 5-7: Fill in the “block header” portion of the base.html file.\nLine 6: Make “Some Cool Messages” the title of this webpage block.\nLines 8-21: Fill in the “block content” portion of the base.html file.\nLine 9: Create an if statement that only runs if a messages object is inputted.\nLine 11: Create a for loop that loops through the inputs of messages.\nLine 13: Put the message in quotes and make it bold.\nLine 14: Put the handle of the user under their quote in italics with a dash in front.\nLine 18: If there is no messages object inputted, display “No messages avaliable.”"
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#where-to-place-the-created-files",
+    "href": "posts/Homework3/HW3.html#where-to-place-the-created-files",
+    "title": "Flask Website With User Inputs",
+    "section": "Where to Place the Created Files:",
+    "text": "Where to Place the Created Files:\n\nFirst, create a folder for the webpage on your device called hw3_flask, and put the app.py file in that folder.\nInside the hw3_flask folder, create another folder called static and put the style.css file in that folder.\nAlso inside the hw3_flask folder, create another folder called templates and put the base.html, submit.html, and view.html files in that folder."
+  },
+  {
+    "objectID": "posts/Homework3/HW3.html#how-to-run-the-app",
+    "href": "posts/Homework3/HW3.html#how-to-run-the-app",
+    "title": "Flask Website With User Inputs",
+    "section": "How to Run the App:",
+    "text": "How to Run the App:\n\nGo to the terminal and set the working directory to the hw3_flask folder. I did this by running:\n\ncd /Users/trentbellinger/Desktop/PIC 16B/Homework/Homework 3/hw3_flask\n\nThen, run the following command terminal:\n\npython app.py\n\nThis will give you a line in the terminal output that says running on http://192.168.0.150:4999 (with different numbers).\nCopy and paste this link into your browser and interact with the website."
+  },
+  {
     "objectID": "posts/Homework0/HW0.html",
     "href": "posts/Homework0/HW0.html",
     "title": "Homework 0",
@@ -228,6 +326,6 @@
     "href": "index.html",
     "title": "PIC 16B Website - Trent Bellinger",
     "section": "",
-    "text": "Web Scraper for Movie and TV Show Reccomendations\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nFeb 5, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of Historic Temperature Data for Different Countries\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 29, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 0\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 13, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\nNo matching items"
+    "text": "Flask Website With User Inputs\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nFeb 5, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nWeb Scraper for Movie and TV Show Reccomendations\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nFeb 5, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nAnalysis of Historic Temperature Data for Different Countries\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 29, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\n\n\n\n\n\n\nHomework 0\n\n\n\n\n\n\nweek 0\n\n\nexample\n\n\n\n\n\n\n\n\n\nJan 13, 2024\n\n\nTrent Bellinger\n\n\n\n\n\n\nNo matching items"
   }
 ]

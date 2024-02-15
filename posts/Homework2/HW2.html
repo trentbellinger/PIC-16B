@@ -237,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>The first code that we write in this file is the class initialization, which is shown below.</li>
 </ul>
-<div id="bd341045" class="cell" data-execution_count="88">
+<div id="7470ceb1" class="cell" data-execution_count="88">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scrapy</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TmdbSpider(scrapy.Spider):</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The first of these methods is the parse method. This method assumes that we are on the selected movie’s TMDB page and navigates the spider to the Full Cast &amp; Crew page. Once on this page, we call the parse_full_credits method, which will be defined later.</li>
 <li>The code for the parse method is below.</li>
 </ul>
-<div id="314528fe" class="cell" data-execution_count="89">
+<div id="cd5838dc" class="cell" data-execution_count="89">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse(<span class="va">self</span>, response):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Yields the cast page of the selected movie and calls the parse_full_credits </span></span>
@@ -277,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>To accomplish this, we must first find a list of all the actor’s URLs on the page and then loop through this list and yield the URL to each actor’s page on TMDB.</li>
 <li>The code for this method is below.</li>
 </ul>
-<div id="1ffde679" class="cell" data-execution_count="64">
+<div id="9bcddea9" class="cell" data-execution_count="64">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_full_credits(<span class="va">self</span>, response):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Starts at the cast page for the selected movie and yields requests for the </span></span>
@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>To accomplish this, we first find the actor’s name on the actor’s TMDB page. We then need to loop through the different credits tables on the page and find the one that contains only the acting roles. We then create a selector for this table, loop through the entries of the table, and yield a dictionary of the actor’s name and the role for each role in the table.</li>
 <li>The code for this method is below.</li>
 </ul>
-<div id="88ddb23b" class="cell" data-execution_count="90">
+<div id="6f4686f0" class="cell" data-execution_count="90">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_actor_page(<span class="va">self</span>, response):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Starts on the TMDB page of an actor and yields a dictionary containing the </span></span>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>After this line is run, a results1.csv file will be created in the TMDB_scraper folder.</li>
 <li>We need to make sure this file is of the correct format, which is done below.</li>
 </ul>
-<div id="9172c6de" class="cell" data-execution_count="91">
+<div id="f804c538" class="cell" data-execution_count="91">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>results1 <span class="op">=</span> pd.read_csv(<span class="st">"results1.csv"</span>)</span>
@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We can se that the results1.csv file is in the correct format, with one column for actor name and one column for the movie or TV show they acted in. There are 2957 observations.</li>
 <li>We will now check is our dataset contains only the actors in the movie (i.e.&nbsp;it excludes the crew members).</li>
 </ul>
-<div id="e4b6174d" class="cell" data-execution_count="92">
+<div id="6b487f55" class="cell" data-execution_count="92">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>results1[<span class="st">'actor'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="92">
 <pre><code>63</code></pre>
@@ -446,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Here, we see that there are 63 total actors in the dataset. When viewing the TMDB webpage for the movie, there are exactly 63 actors in the movie, so our scraper successfully weeded out the crew members and only included the actors.</li>
 <li>We will now check that each actor is only in the dataset for their acting roles (not their roles in production, directing, etc.). We use Daniel Radcliffe as our test.</li>
 </ul>
-<div id="407fb020" class="cell" data-execution_count="93">
+<div id="8e50ad88" class="cell" data-execution_count="93">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>results1.groupby(<span class="st">'actor'</span>).size()[<span class="st">'Daniel Radcliffe'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="93">
 <pre><code>97</code></pre>
@@ -469,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>After this line is run, a results2.csv file is created in the TMDB_scraper folder.</li>
 <li>We just need to make sure this file is of the correct format, which is done below.</li>
 </ul>
-<div id="97a9e8ee" class="cell" data-execution_count="94">
+<div id="0ad8c22b" class="cell" data-execution_count="94">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>results2 <span class="op">=</span> pd.read_csv(<span class="st">"results2.csv"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>results2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="94">
@@ -551,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We can se that the results2.csv file is in the correct format, with one column for actor name and one column for the movie or TV show they acted in. There are 1505 observations.</li>
 <li>We will now check is our dataset contains only the actors in the movie (i.e it excludes the crew members).</li>
 </ul>
-<div id="7c4659b7" class="cell" data-execution_count="70">
+<div id="aae54275" class="cell" data-execution_count="70">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>results2[<span class="st">'actor'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="70">
 <pre><code>49</code></pre>
@@ -561,7 +561,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Here, we see that there are 49 total actors in the dataset. When viewing the TMDB webpage for the movie, there are exactly 49 actors in the movie, so our scraper successfully weeded out the crew members and only included the actors.</li>
 <li>We will now check that each actor is only in the dataset for their acting roles, and not their roles in production, directing, etc. We use Matt Damon as our test.</li>
 </ul>
-<div id="cddce06b" class="cell" data-execution_count="71">
+<div id="21d183b2" class="cell" data-execution_count="71">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>results2.groupby(<span class="st">'actor'</span>).size()[<span class="st">'Matt Damon'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="71">
 <pre><code>163</code></pre>
@@ -579,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now make recommendations for other TV shows and movies. This will be done by creating a Pandas dataframe to show the movies and TV shows that share the most actors with the selected movie or TV show.</li>
 <li>We want to use the dataframes that our scraper creates (like the ones above) to create dataframe with two columns “movie or TV name” and “number of shared actors”. The creation of this dataframe is created in a function that is outlined below.</li>
 </ul>
-<div id="8cdf5f88" class="cell" data-execution_count="72">
+<div id="d0ad9277" class="cell" data-execution_count="72">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recommend_dataframe(df):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns a Pandas dataframe with two columns "movie or TV name" and "number of </span></span>
@@ -592,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>We will also create a barplot to show the movie and TV show recommendations that we should make for each movie. A function to create this plot is outlined below.</li>
 </ul>
-<div id="809e8e41" class="cell" data-execution_count="95">
+<div id="13f7109a" class="cell" data-execution_count="95">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.gridspec <span class="im">import</span> GridSpec</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -632,7 +632,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Using the results1.csv dataframe imported above, we create a dataframe with two columns “movie or TV name” and “number of shared actors” using the recommend_dataframe() function.</li>
 </ul>
-<div id="f11f7355" class="cell" data-execution_count="96">
+<div id="33557495" class="cell" data-execution_count="96">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>recommendations1 <span class="op">=</span> recommend_dataframe(results1)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>recommendations1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="96">
@@ -714,7 +714,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We can see that our function works in creating the dataframe with the two desired columns.</li>
 <li>We will now sort by movies or tv shows that have more than 5 shared actors with Harry Potter and the Philosopher’s Stone.</li>
 </ul>
-<div id="2e02a4ca" class="cell" data-execution_count="97">
+<div id="814310f1" class="cell" data-execution_count="97">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>recommendations1.loc[recommendations1[<span class="st">"number of shared actors"</span>] <span class="op">&gt;</span> <span class="dv">5</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="97">
 <div>
@@ -825,7 +825,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We would reccomend these movies to people who enjoy Harry Potter and the Philosopher’s Stone because the actors are very similar (more than 5 matches).</li>
 <li>We will now use the recommend_barplot() function to visualize the data presented above.</li>
 </ul>
-<div id="d0f50dd2" class="cell" data-execution_count="98">
+<div id="98b7fc80" class="cell" data-execution_count="98">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>recommend_barplot(df <span class="op">=</span> recommendations1, </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                  movie <span class="op">=</span> <span class="st">"Harry Potter and the Philosopher's Stone"</span>, </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  min_num_shared_actors <span class="op">=</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -846,7 +846,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Using the results2.csv dataframe imported above, I will create a dataframe with two columns “movie or TV name” and “number of shared actors” using the recommend_dataframe() function.</li>
 </ul>
-<div id="1a653f68" class="cell" data-execution_count="99">
+<div id="f19ac4dd" class="cell" data-execution_count="99">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>recommendations2 <span class="op">=</span> recommend_dataframe(results2)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>recommendations2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="99">
@@ -928,7 +928,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We can again see that our function works in creating the dataframe with the two desired columns.</li>
 <li>We will now sort by movies or tv shows that have more than 3 shared actors with Good Will Hunting.</li>
 </ul>
-<div id="41c1f5db" class="cell" data-execution_count="100">
+<div id="cbb5a471" class="cell" data-execution_count="100">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>recommendations2.loc[recommendations2[<span class="st">"number of shared actors"</span>] <span class="op">&gt;</span> <span class="dv">3</span>,:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="100">
 <div>
@@ -1029,7 +1029,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>I would reccomend these movies to people who enjoy Good Will Hunting because the actors are very similar (more than 3 matches).</li>
 <li>We will now use the recommend_barplot() function to visualize the data presented above.</li>
 </ul>
-<div id="ae85ef8a" class="cell" data-execution_count="101">
+<div id="e4da159b" class="cell" data-execution_count="101">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>recommend_barplot(df <span class="op">=</span> recommendations2, </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                  movie <span class="op">=</span> <span class="st">"Good Will Hunting"</span>, </span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                  min_num_shared_actors <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
