@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>The first thing that is needed in the python file for the app is an appropriate header that imports the necessary packages/functions and initializes the app. This header is shown below:</li>
 </ul>
-<div id="650963ca" class="cell">
+<div id="5d8715f2" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> flask <span class="im">import</span> Flask, render_template, request, g</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> Flask(<span class="va">__name__</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -218,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Then, we move on to the creation of the first function in the python file. This function will create a SQL database for the messages that are inputted in the website if none has been created already. If a SQL database already exists, it will simply return that database. The code for this function is shown below:</li>
 </ul>
-<div id="caf95fc4" class="cell">
+<div id="80490566" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_message_db():</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Handles the creation of a SQL database for the messages that are presented </span></span>
@@ -244,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>We will now create a function that takes in a user’s input in the form of a request and inserts the user’s handle into the SQL database that is created with the get_message_db() function created above. The code for this function is shown below:</li>
 </ul>
-<div id="d5390f3c" class="cell">
+<div id="10fbca96" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> insert_message(request):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Extracts the message and handle from a request and inserts them into the messages </span></span>
@@ -274,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Now that we have a way to insert the user inputs into the database, we will create a function that allows us to extract random messages from the database.</li>
 <li>The function random_messages(), shown below, outputs a list of the handles and messages for the n random entries of the database that are selected. If the database has less than n entries, then all of the handles and messages will be returned.</li>
 </ul>
-<div id="7ba9e826" class="cell">
+<div id="343154c4" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_messages(n):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns a collection of n random messages that have been previously inputted </span></span>
@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The creation of the submit.html file will be outlined later.</li>
 <li>The code for the first page of the app is shown below:</li>
 </ul>
-<div id="66890789" class="cell">
+<div id="101933a5" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">'/'</span>, methods <span class="op">=</span> [<span class="st">'POST'</span>, <span class="st">'GET'</span>])</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> render_submit_template():</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''Renders the submit.html file in the app, accounting for POST and GET requests.'''</span></span>
@@ -333,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The creation of the view.html file will be outliner later.</li>
 <li>This code is shown below.</li>
 </ul>
-<div id="f1e0df16" class="cell">
+<div id="651a817f" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">@app.route</span>(<span class="st">'/view'</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> view_random_messages():</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
@@ -351,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Finally, we need a place to run the app. The following function allows the app to be run on a local device by simply running the python file in the terminal.</li>
 </ul>
-<div id="83f8ae48" class="cell">
+<div id="6b4704ee" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">    How to run the app. I had to use port=4999 for it to run on my </span></span>
@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The first html file that we must write is called base.html, which will contain the header for each page of the website.</li>
 <li>The html code for this file is shown here. A breakdown of this code is given below the code.</li>
 </ul>
-<div id="6649ea24" class="cell">
+<div id="963dfd7d" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1:  &lt;!doctype html&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#2:  &lt;html&gt;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#3:  &lt;link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"&gt;</span></span>
@@ -414,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now create the submit.html file, which creates a webpage where the user can submit their handle and message.</li>
 <li>The html code for this file is shown here. A breakdown of this code is given below the code.</li>
 </ul>
-<div id="fde3fb57" class="cell">
+<div id="61be1b8e" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1.  &lt;!doctype html&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#2.  &lt;html&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#3.  {% extends 'base.html' %}</span></span>
@@ -459,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now create the view.html file, which creates a webpage where the user can view 4 random previous entries to the website. This is the last html file that is needed for our website.</li>
 <li>The html code for this file is shown here. A breakdown of this code is given below the code.</li>
 </ul>
-<div id="5cf57e8a" class="cell">
+<div id="0c8fe1ba" class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1.  &lt;!doctype html&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#2.  &lt;html&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#3.  {% extends 'base.html' %}</span></span>
@@ -508,7 +508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We will now customize the look of our webpage. This is done through the creation of a style.css file.</li>
 <li>This file is shown below. A breakdown of each block is also given below.</li>
 </ul>
-<div id="a1cb23b5" class="cell">
+<div id="682a289a" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#html {</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    font-family: "Gill Sans", sans-ser;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    background: rgba(0, 128, 0, 0.3);</span></span>
@@ -604,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="HW3_files/figure-html/35ef8601-1-AppIntro.png" class="img-fluid figure-img"></p>
+<p><img src="HW3_files/figure-html/db358c6d-1-AppIntro.png" class="img-fluid figure-img"></p>
 <figcaption>AppIntro.png</figcaption>
 </figure>
 </div>
@@ -613,7 +613,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="HW3_files/figure-html/a32c2c01-1-AppSubmit.png" class="img-fluid figure-img"></p>
+<p><img src="HW3_files/figure-html/1174e6e0-1-AppSubmit.png" class="img-fluid figure-img"></p>
 <figcaption>AppSubmit.png</figcaption>
 </figure>
 </div>
@@ -622,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="HW3_files/figure-html/fa07b481-1-AppView.png" class="img-fluid figure-img"></p>
+<p><img src="HW3_files/figure-html/af12a288-1-AppView.png" class="img-fluid figure-img"></p>
 <figcaption>AppView.png</figcaption>
 </figure>
 </div>
